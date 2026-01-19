@@ -1,18 +1,28 @@
-<!-- markdownlint-disable MD013 -->
+<!-- markdownlint-disable MD013 MD033 -->
 
 # Koren Bashari's DotFiles
 
-![macOS](https://img.shields.io/badge/os-macOS-black?logo=apple)
-![Shell](https://img.shields.io/badge/shell-zsh-89e051?logo=zsh)
-![Editor](https://img.shields.io/badge/editor-Neovim-57A143?logo=neovim)
-![Terminal](https://img.shields.io/badge/terminal-WezTerm-4E49EE?logo=wezterm)
-![Stow](https://img.shields.io/badge/managed%20by-Stow-informational?logo=gnu)
-![Last
-Commit](https://img.shields.io/github/last-commit/KorenB/dotfiles?logo=git)
+<p align="center">
+  <img src="https://img.shields.io/badge/os-macOS-black?logo=apple" alt="macOS">
+  <img src="https://img.shields.io/badge/shell-zsh-89e051?logo=zsh" alt="Shell">
+  <img src="https://img.shields.io/badge/editor-Neovim-57A143?logo=neovim" alt="Editor">
+  <img src="https://img.shields.io/badge/terminal-WezTerm-4E49EE?logo=wezterm" alt="Terminal">
+  <img src="https://img.shields.io/badge/managed%20by-Stow-informational?logo=gnu" alt="Stow">
+  <img src="https://img.shields.io/github/last-commit/KorenB/dotfiles?logo=git" alt="Last Commit">
+  <br>
+  <a href="https://github.com/KorenB/dotfiles/actions/workflows/lint.yml"><img src="https://github.com/KorenB/dotfiles/actions/workflows/lint.yml/badge.svg" alt="Lint"></a>
+  <a href="https://github.com/KorenB/dotfiles/actions/workflows/ci.yml"><img src="https://github.com/KorenB/dotfiles/actions/workflows/ci.yml/badge.svg" alt="Tests"></a>
+</p>
 
-[![Lint](https://github.com/KorenB/dotfiles/actions/workflows/lint.yml/badge.svg)](https://github.com/KorenB/dotfiles/actions/workflows/lint.yml)
+## Table of Contents
 
-[![Tests](https://github.com/KorenB/dotfiles/actions/workflows/ci.yml/badge.svg)](https://github.com/KorenB/dotfiles/actions/workflows/ci.yml)
+- [Usage](#usage)
+- [Usage (just NVIM)](#usage-just-nvim)
+- [Additional stuff](#additional-stuff)
+- [Troubleshooting](#troubleshooting)
+  - [Reinstalling Node.js dependencies](#reinstalling-nodejs-dependencies)
+  - [Reinstalling Python dependencies](#reinstalling-python-dependencies)
+  - [Remove TreeSitter parsers](#remove-treesitter-parsers)
 
 ## Usage
 
@@ -28,7 +38,7 @@ Commit](https://img.shields.io/github/last-commit/KorenB/dotfiles?logo=git)
 
    ```bash
    /bin/bash -c \
-     "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+     "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    eval "$(/opt/homebrew/bin/brew shellenv)" # to make brew available before we load `~/.zshrc` that has "$PATH"
    brew update
    brew install git stow
@@ -116,8 +126,35 @@ NVIM_APPNAME=KorenB/dotfiles/nvim/.config/nvim nvim
 
 - Download and install [Docker](https://www.docker.com/products/docker-desktop)
 
-- Change clipy and maccy shortcuts, and load snippets
+- Change clipy (for snippets) and maccy (for clipboard) shortcuts, and load snippets
 
 - Install [magnet](https://apps.apple.com/us/app/magnet/id441258766?mt=12)
 
-- Install Snagit
+- Install [OneNote](https://apps.apple.com/il/app/microsoft-onenote/id784801555?mt=12)
+
+- Install [shottr](https://shottr.cc/)
+
+## Troubleshooting
+
+### Reinstalling Node.js dependencies
+
+```bash
+while read -r npm_package; do
+  echo "$npm_package"
+  npm i -g "$npm_package"
+done <~/.dotfiles/node/.default-npm-packages
+```
+
+### Reinstalling Python dependencies
+
+```bash
+pip install --user -r ~/.dotfiles/requirements.txt
+```
+
+### Remove TreeSitter parsers
+
+```bash
+rm -rf ~/.local/share/nvim/treesitter
+```
+
+Then reopen nvim and run `:TSUpdate`
